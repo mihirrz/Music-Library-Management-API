@@ -69,6 +69,8 @@ public class UserController {
         }
 
         List<UserEntity> users = userService.getUsers(limit, offset, role);
+        if(users.isEmpty())
+            return ResponseEntity.ok(new ApiResponse<>(200, null, "No users found", null));
         return ResponseEntity.ok(new ApiResponse<>(200, users, "Users retrieved successfully.", null));
     }
 

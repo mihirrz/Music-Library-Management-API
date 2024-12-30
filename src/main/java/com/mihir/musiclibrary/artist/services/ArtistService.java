@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArtistService {
 
@@ -18,12 +20,17 @@ public class ArtistService {
     @Autowired
     private JwtService jwtService;
 
-    public ArtistEntity saveArtist(@Valid ArtistDTO artistDTO) {
+    public ArtistEntity addArtist(@Valid ArtistDTO artistDTO) {
         ArtistEntity artist = new ArtistEntity();
         artist.setArtistId(artistDTO.getArtistId());
         artist.setName(artistDTO.getName());
         artist.setGrammy(artistDTO.isGrammy());
+        artist.setHidden(artistDTO.isHidden());
 
         return artistRepository.save(artist);
+    }
+
+    public List<ArtistEntity> fetchArtists() {
+        return artistRepository.findAll();
     }
 }

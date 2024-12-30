@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,9 +34,19 @@ public class ArtistController {
                     .body(new ApiResponse<>(400, null, "Validation failed", errorDetails));
         }
 
-        ArtistEntity addedArtist = artistService.saveArtist(artistDTO);
+        ArtistEntity addedArtist = artistService.addArtist(artistDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse<>(201, null, "Artist added successfully.", null));
     }
+
+    @GetMapping("/artists")
+    public ResponseEntity<ApiResponse<?>> getAllArtist()
+    {
+        List<ArtistEntity> fetchedArtists = artistService.fetchArtists();
+        if(fetchedArtists.isEmpty())
+            return ResponseEntity.ok(new ApiResponse<>(200, null, "No Artists found", null));
+        return ResponseEntity.ok(new ApiResponse<>(200, fetchedArtists, "Artists fetched successfully", null));
+    }
+
 
 }

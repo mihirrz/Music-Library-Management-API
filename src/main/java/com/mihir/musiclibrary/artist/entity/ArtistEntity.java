@@ -1,6 +1,6 @@
 package com.mihir.musiclibrary.artist.entity;
 
-import org.hibernate.validator.constraints.UUID;
+import java.util.UUID;
 import jakarta.persistence.*;
 
 @Entity
