@@ -6,7 +6,6 @@ import com.mihir.musiclibrary.user.dto.UserDto;
 import com.mihir.musiclibrary.user.entity.UserEntity;
 import com.mihir.musiclibrary.user.services.UserService;
 import jakarta.validation.Valid;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
