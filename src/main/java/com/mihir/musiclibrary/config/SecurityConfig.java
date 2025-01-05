@@ -65,6 +65,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/v1/artists/add-artist").hasAnyAuthority("ROLE_ADMIN", "ROLE_EDITOR")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/artists/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EDITOR")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/artists/**").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/artists/{id}/albums").hasAnyAuthority("ROLE_ADMIN", "ROLE_EDITOR", "ROLE_VIEWER")
 
                                 // Role-based access for albums
                                 .requestMatchers(HttpMethod.GET, "/api/v1/albums").hasAnyAuthority("ROLE_ADMIN", "ROLE_EDITOR", "ROLE_VIEWER")

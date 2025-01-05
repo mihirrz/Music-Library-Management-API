@@ -1,6 +1,8 @@
 package com.mihir.musiclibrary.artist.services;
 
 
+import com.mihir.musiclibrary.album.entity.AlbumEntity;
+import com.mihir.musiclibrary.album.repository.AlbumRepository;
 import com.mihir.musiclibrary.artist.dto.ArtistDTO;
 import com.mihir.musiclibrary.artist.entity.ArtistEntity;
 import com.mihir.musiclibrary.artist.repository.ArtistRepository;
@@ -16,6 +18,9 @@ import java.util.UUID;
 
 @Service
 public class ArtistService {
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     @Autowired
     private ArtistRepository artistRepository;
@@ -79,6 +84,15 @@ public class ArtistService {
         return artistRepository.save(artist);
     }
 
+    public List<AlbumEntity> getAlbumsByArtist(UUID artistId) {
+        Optional<ArtistEntity> artist = artistRepository.findById(artistId);
+        if (artist.isPresent()) {
+            // Assuming that the albums are linked to ArtistEntity in your database
+            return albumRepository.findByArtist(artist.get()); // You will need to implement this method in your AlbumRepository
+        } else {
+            throw new RuntimeException("Artist not found");
+        }
+    }
 
 
 }

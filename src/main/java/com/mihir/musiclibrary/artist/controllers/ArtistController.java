@@ -2,6 +2,7 @@ package com.mihir.musiclibrary.artist.controllers;
 
 import com.mihir.musiclibrary.Response.ApiResponse;
 import com.mihir.musiclibrary.Response.ErrorDetails;
+import com.mihir.musiclibrary.album.entity.AlbumEntity;
 import com.mihir.musiclibrary.artist.dto.ArtistDTO;
 import com.mihir.musiclibrary.artist.entity.ArtistEntity;
 import com.mihir.musiclibrary.artist.services.ArtistService;
@@ -118,4 +119,26 @@ public class ArtistController {
                             Collections.singletonList(new ErrorDetails("exception", ex.getMessage()))));
         }
     }
+
+    @GetMapping("/artists/{id}/albums")
+    public ResponseEntity<ApiResponse<?>> getAlbumsByArtist(@PathVariable UUID id) {
+        try {
+            List<AlbumEntity> albums = artistService.getAlbumsByArtist(id);
+            if (albums.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ApiResponse<>(404, null, "No albums found for this artist", null));
+            }
+            return ResponseEntity.ok(new ApiResponse<>(200, albums, "Albums fetched successfully", null));
+        } catch (RuntimeException e) {
+            // If the artist is not found or other RuntimeExceptions occur
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, null, e.getMessage(), null));
+        } catch (Exception e) {
+            // Handle other unexpected exceptions
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, null, "An unexpected error occurred", null));
+        }
+    }
+
+
 }
