@@ -1,6 +1,9 @@
 package com.mihir.musiclibrary.artist.entity;
 
+import java.util.List;
 import java.util.UUID;
+
+import com.mihir.musiclibrary.album.entity.AlbumEntity;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +23,9 @@ public class ArtistEntity {
 
     @Column(name = "hidden", nullable = false)
     private boolean hidden;
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlbumEntity> albums;
 
     public UUID getArtistId() { return artistId; }
 

@@ -37,7 +37,7 @@ public class ArtistController {
                     .body(new ApiResponse<>(400, null, "Validation failed", errorDetails));
         }
 
-        ArtistEntity addedArtist = artistService.addArtist(artistDTO);
+        ArtistEntity newArtist = artistService.addArtist(artistDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse<>(201, null, "Artist added successfully.", null));
     }
