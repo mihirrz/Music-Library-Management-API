@@ -60,7 +60,8 @@ public class AlbumService {
                     album.setName((String) value);
                     break;
                 case "artistId":
-                    album.setAlbumId((UUID) value);
+                    Optional<ArtistEntity> artistOptional = artistRepository.findById((UUID) value);
+                    artistOptional.ifPresent(album::setArtist); // Set the artist
                     break;
                 case "year":
                     album.setYear((int) value);
@@ -75,4 +76,13 @@ public class AlbumService {
         // Save updated album
         return albumRepository.save(album);
     }
+
+    public void deleteAlbum(UUID id) {
+        AlbumEntity album = albumRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Album not found"));
+
+        albumRepository.delete(album);  // Deleting the album from the repository
+    }
+
+
 }

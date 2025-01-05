@@ -74,8 +74,8 @@ public class AlbumController {
             // Update the album
             AlbumEntity updatedAlbum = albumService.updateAlbum(id, updates);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                    .body(new ApiResponse<>(204, updatedAlbum, "Album updated successfully.", null));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponse<>(200, updatedAlbum, "Album updated successfully.", null));
         } catch (RuntimeException ex) {
             // If album not found
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -88,5 +88,25 @@ public class AlbumController {
                             Collections.singletonList(new ErrorDetails("exception", ex.getMessage()))));
         }
     }
+
+    @DeleteMapping("/albums/{id}")
+    public ResponseEntity<ApiResponse<?>> deleteAlbum(@PathVariable UUID id) {
+        try {
+            albumService.deleteAlbum(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(new ApiResponse<>(204, null, "Album deleted successfully.", null));
+        } catch (RuntimeException ex) {
+            // If album not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, null, "Album not found",
+                            Collections.singletonList(new ErrorDetails("albumId", ex.getMessage()))));
+        } catch (Exception ex) {
+            // For other unexpected exceptions
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(500, null, "An unexpected error occurred.",
+                            Collections.singletonList(new ErrorDetails("exception", ex.getMessage()))));
+        }
+    }
+
 
 }
