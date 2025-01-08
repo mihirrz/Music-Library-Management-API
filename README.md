@@ -12,7 +12,7 @@ To create a new user, use the following request body:
   "role": "ROLE_ADMIN",
   "password": "admin123"
 }
-
+```
 ### Artist Creation
 To create a new artist, use the following request body:
 ```json
@@ -21,7 +21,7 @@ To create a new artist, use the following request body:
   "grammy": true,
   "hidden": false
 }
-
+```
 ### Album Creation
 To create a new album, use the following request body:
 ```json
@@ -31,7 +31,7 @@ To create a new album, use the following request body:
   "year": 2017,
   "hidden": false
 }
-
+```
 ### Track Creation
 To create a new track, use the following request body:
 ```json
@@ -42,3 +42,4 @@ To create a new track, use the following request body:
   "duration": 193,
   "hidden": false
 }
+```
