@@ -13,7 +13,7 @@ This Music Library Management API allows users within an organization to manage 
 
 ## Endpoints Overview
 
-### User Creation
+### User Creation or Signup
 - To create a new user or signup, use the following request body:
 - **URL**: `POST /api/v1/signup`
 ```json
@@ -23,10 +23,19 @@ This Music Library Management API allows users within an organization to manage 
   "password": "admin123"
 }
 ```
+### User Login
+- To create a new user or signup, use the following request body:
+- **URL**: `POST /api/v1/login`
+```json
+{
+  "email": "mihir@example.com",
+  "password": "admin123"
+}
+```
 
 ### Artist Creation
-To create a new artist, use the following request body:
-**URL**: `POST /api/v1/artists/add-artist`
+- To create a new artist, use the following request body:
+- **URL**: `POST /api/v1/artists/add-artist`
 ```json
 {
   "name": "Alan Walker",
@@ -35,8 +44,8 @@ To create a new artist, use the following request body:
 }
 ```
 ### Album Creation
-To create a new album, use the following request body:
-**URL**: `POST /api/v1/albums/add-albums`
+- To create a new album, use the following request body:
+- **URL**: `POST /api/v1/albums/add-albums`
 ```json
 {
   "artistId": "03599a04-3663-4106-89b9-69020bca1d85",
@@ -46,8 +55,8 @@ To create a new album, use the following request body:
 }
 ```
 ### Track Creation
-To create a new track, use the following request body:
-**URL**: `POST /api/v1/tracks/add-track`
+- To create a new track, use the following request body:
+- **URL**: `POST /api/v1/tracks/add-track`
 ```json
 {
   "artistId": "03599a04-3663-4106-89b9-69020bca1d85",
