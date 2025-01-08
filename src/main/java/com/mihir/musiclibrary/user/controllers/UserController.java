@@ -4,6 +4,7 @@ import com.mihir.musiclibrary.Response.ApiResponse;
 import com.mihir.musiclibrary.Response.ErrorDetails;
 import com.mihir.musiclibrary.user.dto.UserDto;
 import com.mihir.musiclibrary.user.entity.UserEntity;
+import com.mihir.musiclibrary.user.entity.UserRole;
 import com.mihir.musiclibrary.user.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class UserController {
     // Signup endpoint
     @PostMapping("/signup")
     public ResponseEntity<ApiResponse<?>> signup(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
-        
         if (bindingResult.hasErrors()) {
             List<ErrorDetails> errorDetails = bindingResult.getFieldErrors().stream()
                     .map(error -> new ErrorDetails(error.getField(), error.getDefaultMessage()))
@@ -42,9 +42,14 @@ public class UserController {
                     .body(new ApiResponse<>(409, null, "Email already exists.", null));
         }
 
-        UserEntity savedUser = userService.saveUser(userDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ApiResponse<>(201, null, "User created successfully.", null));
+        try{
+            UserEntity savedUser = userService.saveUser(userDto);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new ApiResponse<>(201, null, "User created successfully.", null));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(new ApiResponse<>(400, null, e.getMessage(), null));
+        }
+
     }
 
     // Login endpoint
@@ -62,11 +67,6 @@ public class UserController {
             @RequestParam(required = false) String role,
             @RequestHeader("Authorization") String token) {
 
-        if (!userService.isAdminAccessValid(token)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(new ApiResponse<>(403, null, "Forbidden: Access denied.", null));
-        }
-
         List<UserEntity> users = userService.getUsers(limit, offset, role);
         if(users.isEmpty())
             return ResponseEntity.ok(new ApiResponse<>(200, null, "No users found", null));
@@ -79,11 +79,6 @@ public class UserController {
             @Valid @RequestBody UserDto userDto,
             @RequestHeader("Authorization") String token,
             BindingResult bindingResult) {
-
-        if (!userService.isAdminAccessValid(token)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(new ApiResponse<>(403, null, "Forbidden: Access denied.", null));
-        }
 
         if (bindingResult.hasErrors()) {
             List<ErrorDetails> errorDetails = bindingResult.getFieldErrors().stream()
@@ -108,11 +103,6 @@ public class UserController {
     public ResponseEntity<ApiResponse<?>> deleteUser(
             @PathVariable UUID id,
             @RequestHeader("Authorization") String token) {
-
-        if (!userService.isAdminAccessValid(token)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(new ApiResponse<>(403, null, "Forbidden: Access denied.", null));
-        }
 
         userService.deleteUser(id);
         return ResponseEntity.ok(new ApiResponse<>(200, null, "User deleted successfully.", null));

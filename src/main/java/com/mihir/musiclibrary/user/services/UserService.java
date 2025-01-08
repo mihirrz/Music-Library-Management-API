@@ -25,11 +25,6 @@ public class UserService {
     @Autowired
     private JwtService jwtService;
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
-
-    private static final String KAFKA_TOPIC = "user-service-errors";
-
     public UserEntity saveUser(UserDto userDto) {
         UserEntity user = new UserEntity();
         user.setEmail(userDto.getEmail());
@@ -38,9 +33,13 @@ public class UserService {
         if (isFirstUser()) {
             user.setRole(UserRole.ROLE_ADMIN);
         } else {
-            if (userDto.getRole() == null) {
-                handleRoleException();
-            }
+            if (userDto.getRole() == null)
+                handleRoleException("Role is missing");
+            if(userDto.getRole() == UserRole.ROLE_ADMIN)
+                handleRoleException("An Admin role has already been assigned to the organization. " +
+                                    "As part of our 'One Organization, One Admin' policy, no new Admins can be created. " +
+                                    "Please contact the existing Admin for further assistance."
+                );
             user.setRole(userDto.getRole());
         }
 
@@ -56,14 +55,6 @@ public class UserService {
         }
 
         return jwtService.generateToken(email, String.valueOf(user.getRole()));
-    }
-
-    public boolean isAdminAccessValid(String token) {
-        String email = jwtService.extractEmail(token.substring(7));
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return "ROLE_ADMIN".equals(String.valueOf(user.getRole()));
     }
 
     public List<UserEntity> getUsers(int limit, int offset, String role) {
@@ -93,9 +84,8 @@ public class UserService {
         return userRepository.count() == 0;
     }
 
-    private void handleRoleException() {
-        kafkaTemplate.send(KAFKA_TOPIC, "Missing user role");
-        throw new RuntimeException("Role is required for user creation.");
+    private void handleRoleException(String message) {
+        throw new RuntimeException(message);
     }
 
     public boolean emailExists(String email) {
