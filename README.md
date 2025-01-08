@@ -14,8 +14,8 @@ This Music Library Management API allows users within an organization to manage 
 ## Endpoints Overview
 
 ### User Creation
-To create a new user or signup, use the following request body:
-**URL**: `POST /api/v1/signup`
+- To create a new user or signup, use the following request body:
+- **URL**: `POST /api/v1/signup`
 ```json
 {
   "email": "mihir@example.com",
@@ -23,6 +23,7 @@ To create a new user or signup, use the following request body:
   "password": "admin123"
 }
 ```
+
 ### Artist Creation
 To create a new artist, use the following request body:
 **URL**: `POST /api/v1/artists/add-artist`
