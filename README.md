@@ -1,6 +1,15 @@
-# Music API
+# Music Library Management API
 
-This API allows users to manage users, artists, albums, and tracks with role-based access control. Below are the endpoints for each entity and their associated access control rules.
+This Music Library Management API allows users within an organization to manage their collection of Artists, Tracks, and Albums. Each organization has a single Admin who oversees the system and its users. The API also provides functionality for users to mark their favorite Artists, Albums, and Tracks for quick access and personalization.
+
+## Key Features:
+- **One Organization, One Admin**: Each organization has a single Admin with full control over the system. The Admin manages the users and controls their access to different parts of the music library.
+- **Role-Based Access Control (RBAC)**: Users have distinct roles (Admin, Editor, Viewer) with permissions tailored to their responsibilities. The Admin has full control, Editors can modify data, and Viewers can only access and view the content.
+- **Entity Relationships**: 
+  - **Artists**: Artists can have multiple Albums and Tracks associated with them.
+  - **Albums**: Albums belong to a specific Artist and contain multiple Tracks.
+  - **Tracks**: Tracks belong to both an Artist and an Album, and are used to play music.
+- **Favorites**: Users can personalize their experience by marking their favorite Artists, Albums, and Tracks for easy retrieval and quick access.
 
 ## Endpoints Overview
 
