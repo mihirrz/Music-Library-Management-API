@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class FavoritesEntity {
 
     @Id
+
     @Column(name = "favorite_id", nullable = false)
     private UUID favoriteId;
 
