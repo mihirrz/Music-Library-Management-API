@@ -14,7 +14,8 @@ This Music Library Management API allows users within an organization to manage 
 ## Endpoints Overview
 
 ### User Creation
-To create a new user, use the following request body:
+To create a new user or signup, use the following request body:
+**URL**: `POST /api/v1/signup`
 ```json
 {
   "email": "mihir@example.com",
@@ -24,6 +25,7 @@ To create a new user, use the following request body:
 ```
 ### Artist Creation
 To create a new artist, use the following request body:
+**URL**: `POST /api/v1/artists/add-artist`
 ```json
 {
   "name": "Alan Walker",
@@ -33,6 +35,7 @@ To create a new artist, use the following request body:
 ```
 ### Album Creation
 To create a new album, use the following request body:
+**URL**: `POST /api/v1/albums/add-albums`
 ```json
 {
   "artistId": "03599a04-3663-4106-89b9-69020bca1d85",
@@ -43,6 +46,7 @@ To create a new album, use the following request body:
 ```
 ### Track Creation
 To create a new track, use the following request body:
+**URL**: `POST /api/v1/tracks/add-track`
 ```json
 {
   "artistId": "03599a04-3663-4106-89b9-69020bca1d85",
