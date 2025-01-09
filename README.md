@@ -15,6 +15,40 @@ This Music Library Management API allows users within an organization to manage 
   - **Artists, Albums, Tracks:** Full CRUD operations based on role permissions.
   - **Favorites:** Users can add or remove their favorite Artists, Albums, and Tracks.
 
+## Technologies Used
+
+- **Spring Boot**: Framework for building the backend
+- **H2 Database**: In-memory database for development and testing
+- **Spring Security**: For authentication and authorization
+- **Maven**: For dependency management and building the project
+- **JWT (JSON Web Token)**: Token-based authentication
+- **Jakarta Validation API**: For custom data validation
+
+## Prerequisites
+### Ensure you have the following installed on your system:
+
+- **Java Development Kit (JDK)**: Version 21 or higher
+- **Apache Maven** : For building the project
+
+## Installation and Setup
+Follow these steps to clone and run the project:
+1. Clone the Repository
+```bash
+  git clone https://github.com/mihirrz/music-library-management-API.git
+  cd music-library-management-API
+```
+2. Build the Project
+- Use Maven to build the project and download dependencies:
+```bash
+  mvn clean install
+```
+3. Run the Application
+- Start the Spring Boot application:
+```bash
+  mvn spring-boot:run
+```
+The application will be accessible at http://localhost:8080 by default.
+
 ## Endpoints Overview
 
 ### User Creation or Signup
