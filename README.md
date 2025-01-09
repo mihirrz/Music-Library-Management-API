@@ -9,7 +9,11 @@ This Music Library Management API allows users within an organization to manage 
   - **Artists**: Artists can have multiple Albums and Tracks associated with them.
   - **Albums**: Albums belong to a specific Artist and contain multiple Tracks.
   - **Tracks**: Tracks belong to both an Artist and an Album, and are used to play music.
-- **Favorites**: Users can personalize their experience by marking their favorite Artists, Albums, and Tracks for easy retrieval and quick access.
+  - **Favorites**: Users can personalize their experience by marking their favorite Artists, Albums, and Tracks for easy retrieval and quick access.
+- **Entity Management**:
+  - **Users:** Admins can manage users by adding, deleting, and updating their roles (except for other Admins).
+  - **Artists, Albums, Tracks:** Full CRUD operations based on role permissions.
+  - **Favorites:** Users can add or remove their favorite Artists, Albums, and Tracks.
 
 ## Endpoints Overview
 
