@@ -120,3 +120,14 @@ The application will be accessible at http://localhost:8080 by default.
 ### Fetch all Tracks
 - To fetch all tracks:
 - **URL**: `GET /api/v1/tracks`
+
+## Contribution
+
+Feel free to fork this repository and submit pull requests for any enhancements or bug fixes. For major changes, please open an issue first to discuss what you would like to change.
+
+
+---
+
+### Author
+
+Developed by **Mihir Raj**. For any queries or support, reach out at [mihirraj52@gmail.com](mailto:mihirraj52@gmail.com).
