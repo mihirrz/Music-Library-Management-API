@@ -33,6 +33,10 @@ This Music Library Management API allows users within an organization to manage 
 }
 ```
 
+### Fetch all Users
+- To fetch all users:
+- **URL**: `GET /api/v1/users`
+
 ### Artist Creation
 - To create a new artist, use the following request body:
 - **URL**: `POST /api/v1/artists/add-artist`
@@ -43,6 +47,11 @@ This Music Library Management API allows users within an organization to manage 
   "hidden": false
 }
 ```
+
+### Fetch all Artists
+- To fetch all artists:
+- **URL**: `GET /api/v1/artists`
+  
 ### Album Creation
 - To create a new album, use the following request body:
 - **URL**: `POST /api/v1/albums/add-albums`
@@ -54,6 +63,10 @@ This Music Library Management API allows users within an organization to manage 
   "hidden": false
 }
 ```
+### Fetch all Albums
+- To fetch all albums:
+- **URL**: `GET /api/v1/albums`
+
 ### Track Creation
 - To create a new track, use the following request body:
 - **URL**: `POST /api/v1/tracks/add-track`
@@ -66,3 +79,6 @@ This Music Library Management API allows users within an organization to manage 
   "hidden": false
 }
 ```
+### Fetch all Tracks
+- To fetch all tracks:
+- **URL**: `GET /api/v1/tracks`
